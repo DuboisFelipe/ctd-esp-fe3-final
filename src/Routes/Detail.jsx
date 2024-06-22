@@ -1,19 +1,29 @@
-import React from 'react'
-
-
-//Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
-
+// routes/Detail.jsx
+import React from 'react';
+import { useState, useEffect,axios, } from 'react';
+import {  useParams } from "react-router-dom"
 const Detail = () => {
- 
-  // Consumiendo el parametro dinamico de la URL deberan hacer un fetch a un user en especifico
+  const { id } = useParams();
+  const [dentist, setDentist] = useState({});
+
+  useEffect(() => {
+    axios.get(`https://api.example.com/dentists/${id}`)
+      .then(response => {
+        setDentist(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, [id]);
 
   return (
-    <>
-      <h1>Detail Dentist id </h1>
-      {/* aqui deberan renderizar la informacion en detalle de un user en especifico */}
-      {/* Deberan mostrar el name - email - phone - website por cada user en especifico */}
-    </>
-  )
-}
+    <div>
+      <h1>Detalle del dentista</h1>
+      <h2>{dentist.name}</h2>
+      <p>{dentist.specialty}</p>
+      <p>{dentist.bio}</p>
+    </div>
+  );
+};
 
-export default Detail
+export default Detail;

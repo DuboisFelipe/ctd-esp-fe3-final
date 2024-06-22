@@ -1,19 +1,44 @@
-import React from "react";
-import Card from "../Components/Card";
-
-//Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
-
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 const Favs = () => {
+  const [favs, setFavs] = useState([]);
+
+  useEffect(() => {
+    const storedFavs = localStorage.getItem('favs');
+    if (storedFavs) {
+      setFavs(JSON.parse(storedFavs));
+    }
+  }, []);
 
   return (
-    <>
-      <h1>Dentists Favs</h1>
-      <div className="card-grid">
-        {/* este componente debe consumir los destacados del localStorage */}
-        {/* Deberan renderizar una Card por cada uno de ellos */}
-      </div>
-    </>
+    <div>
+      <h1>Favoritos</h1>
+      <ul>
+        {favs.map(dentist => (
+          <li key={dentist.id}>
+            <Card dentist={dentist} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
+};
+
+const Card = ({ dentist }) => {
+  return (
+    <div>
+      <h2>{dentist.name}</h2>
+      <p>{dentist.specialty}</p>
+    </div>
+  );
+};
+
+Card.propTypes = {
+  dentist: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    specialty: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Favs;
