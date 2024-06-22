@@ -1,20 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { ContextGlobal } from '../Components/utils/global.context';
 
 const Home = () => {
   const [dentists, setDentists] = useState([]);
+  const { dispatch } = useContext(ContextGlobal);
 
   useEffect(() => {
-    axios.get('https://api.example.com/dentists')
+    axios.get('https://jsonplaceholder.typicode.com/users')
       .then(response => {
         setDentists(response.data);
+        dispatch({ type: 'SET_DENTISTAS', payload: response.data });
       })
       .catch(error => {
         console.error(error);
       });
   }, []);
+
+  const handleAddToFavorites = (dentistId) => {
+    dispatch({ type: 'ADD_TO_FAVORITES', payload: dentistId });
+  };
 
   return (
     <div>
@@ -22,7 +29,7 @@ const Home = () => {
       <ul>
         {dentists.map(dentist => (
           <li key={dentist.id}>
-            <Card dentist={dentist} />
+            <Card dentist={dentist} onAddToFavorites={handleAddToFavorites} />
           </li>
         ))}
       </ul>
@@ -30,12 +37,13 @@ const Home = () => {
   );
 };
 
-const Card = ({ dentist }) => {
+const Card = ({ dentist, onAddToFavorites }) => {
   return (
     <div>
       <h2>{dentist.name}</h2>
       <p>{dentist.specialty}</p>
       <Link to={`/dentista/${dentist.id}`}>Ver detalles</Link>
+      <button onClick={() => onAddToFavorites(dentist.id)}>Agregar a destacados</button>
     </div>
   );
 };
@@ -46,6 +54,7 @@ Card.propTypes = {
     name: PropTypes.string.isRequired,
     specialty: PropTypes.string.isRequired,
   }).isRequired,
+  onAddToFavorites: PropTypes.func.isRequired,
 };
 
 export default Home;

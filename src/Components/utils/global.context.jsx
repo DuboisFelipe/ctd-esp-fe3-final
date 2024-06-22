@@ -1,28 +1,52 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import fetchData from '../utils/Api';
 
-export const initialState = { theme: "", data: [] };
+const initialState = {
+  theme: 'light', 
+  data: [],
+  highlighted: [],
+  favs: [],
+};
 
-export const ContextGlobal = createContext({ theme: "", data: [] });
-
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_THEME':
       return { ...state, theme: action.theme };
     case 'SET_DATA':
       return { ...state, data: action.data };
     case 'ADD_FAV':
-      return { ...state, data: [...state.data, action.fav] };
+      return { ...state, favs: [...state.favs, action.fav] };
+    case 'ADD_HIGHLIGHT':
+      return { ...state, highlighted: [...state.highlighted, action.dentist] };
+    case 'REMOVE_HIGHLIGHT':
+      return { ...state, highlighted: state.highlighted.filter((dentist) => dentist.id !== action.dentistId) };
     default:
       return state;
   }
 };
 
-export const ContextProvider = ({ children }) => {
+const ContextGlobal = createContext({ theme: "", data: [], highlighted: [], favs: [] });
+
+const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  useEffect(() => {
+    fetchData().then((data) => {
+      dispatch({ type: 'SET_DATA', data });
+    });
+  }, []);
+
+  const setTheme = (theme) => {
+    dispatch({ type: 'SET_THEME', theme });
+  };
+
+  const addFav = (fav) => {
+    dispatch({ type: 'ADD_FAV', fav });
+  };
+
   return (
-    <ContextGlobal.Provider value={{ state, dispatch }}>
+    <ContextGlobal.Provider value={{ state, dispatch, setTheme, addFav }}>
       {children}
     </ContextGlobal.Provider>
   );
@@ -31,3 +55,6 @@ export const ContextProvider = ({ children }) => {
 ContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+
+export { ContextProvider, ContextGlobal };

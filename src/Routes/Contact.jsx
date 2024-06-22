@@ -1,7 +1,10 @@
 // routes/Contact.jsx
 import { useState } from 'react';
+import { useContext } from 'react';
+import { ContextGlobal } from '../Components/utils/global.context';
 
 const Contact = () => {
+  const { state } = useContext(ContextGlobal);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -19,7 +22,7 @@ const Contact = () => {
   };
 
   return (
-    <div>
+    <div className={state.theme}>
       <h1>Contacto</h1>
       <form onSubmit={handleSubmit}>
         <label>
