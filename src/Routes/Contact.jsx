@@ -1,5 +1,5 @@
 // routes/Contact.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const Contact = () => {
   const [name, setName] = useState('');
