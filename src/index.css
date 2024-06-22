@@ -1,88 +1,138 @@
-/* Estilos globales */
-
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Tema light */
-.light {
-  background-color: #f9f9f9;
-  color: #333;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
-.light nav {
-  background-color: #333;
-  color: #fff;
+.favButton {
+  background-color: rgba(136, 136, 136, 0.116);
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
 }
 
-.light footer {
-  background-color: #333;
-  color: #fff;
+.favButton:hover {
+  background-color: rgba(173, 216, 230, 0.8);
 }
 
-/* Tema dark */
-.dark {
-  background-color: #333;
-  color: #fff;
+h1 {
+  text-align: center;
 }
 
-.dark nav {
-  background-color: #444;
-  color: #fff;
+nav {
+  background-color: rgba(211, 211, 211);
+  justify-content: space-between;
+  padding: 0.5rem;
 }
 
-.dark footer {
-  background-color: #444;
-  color: #fff;
+nav, nav div {
+  display: flex;
 }
 
-/* Theme switcher styles */
-
-.theme-switch {
-  position: absolute !important;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
+nav button {
+  background-color: #000;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  height: 37px;
+  width: 37px;
 }
 
-.switch-label::before {
-  content: var(--switch-icon);
-  font-size: 40px;
-  transition: text-shadow .2s;
+nav div {
+  align-items: center;
+  justify-content: space-around;
+  margin-right: 55px;
+  width: 30%;
 }
 
-.switch-label::after {
-  content: var(--switch-text);
-  color: var(--switch-shadow-color);
+nav h2 {
+  margin-left: 99px;
 }
 
-.theme-switch:focus ~ #page .switch-label::before,
-.switch-label:hover::before {
-  text-shadow: 0 0 15px var(--switch-shadow-color);
+a {
+  color: #000;
+  text-decoration: none;
+  margin: 5px;
+  cursor: pointer;
 }
 
-:root {
-  /* Light mode */
-  --light-switch-shadow: #373d4e;
-  --light-switch-icon: "🌚";
-  --light-switch-text: "dark mode?";
+a:hover {
+  color: rgb(136, 136, 136);
+} 
+
+footer {
+  background-color: rgba(139, 94, 92);
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  position: fixed;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+footer > p {
+  margin: 0;
+  padding-top: 0.7rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 300px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.card {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  border: 0.5px solid rgb(136, 136, 136);
+}
+
+.card:hover {
+  border: 0.5px solid rgb(206, 217, 142);
+}
+
+.card-grid {
   
-  /* Dark mode */
-  --dark-switch-shadow: #fce477;
-  --dark-switch-icon: "🌝";
-  --dark-switch-text: "light mode?";
-  
-  /* Default mode */
-  --switch-shadow-color: var(--light-switch-shadow);
-  --switch-icon: var(--light-switch-icon);
-  --switch-text: var(--light-switch-text);
+  justify-content: center;
+  gap: 1rem;
+  width: 150vw;
+  height: auto;
+  flex-wrap: wrap;
+  margin: 0 auto 120px auto;
 }
 
-.theme-switch:checked ~ #page {
-  --switch-shadow-color: var(--dark-switch-shadow);
-  --switch-icon: var(--dark-switch-icon);
-  --switch-text: var(--dark-switch-text);
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  display: table;
+  border: 1px solid #ccc;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }

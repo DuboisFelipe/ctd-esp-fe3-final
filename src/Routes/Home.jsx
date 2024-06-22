@@ -39,9 +39,9 @@ const Home = () => {
 
 const Card = ({ dentist, onAddToFavorites }) => {
   return (
-    <div>
+    <div className='card-grid'>
       <h2>{dentist.name}</h2>
-      <p>{dentist.specialty}</p>
+      <p>{dentist.username}</p>
       <Link to={`/dentista/${dentist.id}`}>Ver detalles</Link>
       <button onClick={() => onAddToFavorites(dentist.id)}>Agregar a destacados</button>
     </div>

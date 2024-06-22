@@ -11,8 +11,9 @@ const Detail = () => {
     <div className={state.theme}>
       <h1>Detalle del dentista</h1>
       <h2>{dentist.name}</h2>
-      <p>{dentist.specialty}</p>
-      <p>{dentist.bio}</p>
+      <p>{dentist.username}</p>
+      <p>{dentist.email}</p>
+      <p>{dentist.website}</p>
     </div>
   );
 };
